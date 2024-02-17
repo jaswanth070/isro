@@ -1,0 +1,130 @@
+[
+    {
+        "event": "4L40Hs ignition",
+        "time": -4,
+        "altitude": 0.03,
+        "thrust": 4848,
+        "image": "GSLV-M2/4LH.png",
+        "stage": "4 Strap on Boosters"
+    },
+    {
+        "event": "S139 ignition",
+        "time": 0,
+        "altitude": 0.03,
+        "thrust": 7888,
+        "image": "GSLV-M2/4L_GS1.png",
+        "stage": "GS1 --- Core-S1-39 Strapon Boosters 4L40H"
+    },
+    {
+        "event": "S139 Shutoff",
+        "time": 100,
+        "altitude": 0,
+        "thrust": 4848,
+        "image": "GSLV-M2/4LH.png",
+        "stage": "GS1 - Strapon Boosters 4L40H"
+    },
+    {
+        "event": "4L40H shut off",
+        "time": 149,
+        "altitude": 69.55,
+        "thrust": 0,
+        "image": "GSLV-M2/gslv.png",
+        "stage": "GS1"
+    },
+    {
+        "event": "GS2 ignition",
+        "time": 150,
+        "altitude": 69.98,
+        "thrust": 847,
+        "image": "GSLV-M2/gslv.png",
+        "stage": "GS1"
+    },
+    {
+        "event": "GS1/GS2 Separation",
+        "time": 151,
+        "altitude": 71.15,
+        "thrust": 847,
+        "image": "GSLV-M2/GS2_IG.png",
+        "stage": "GS2 - GL40HT"
+    },
+    {
+        "event": "IS1/2M separation",
+        "time": 157,
+        "altitude": 75.25,
+        "thrust": 847,
+        "image": "GSLV-M2/GS2_IG.png",
+        "stage": "GS2 - GL40HT"
+    },
+    {
+        "event": "CLF INIT",
+        "time": 160,
+        "altitude": 75.25,
+        "thrust": 847,
+        "image": "GSLV-M2/GS2_IG.png",
+        "stage": "CLF INIT"
+    },
+    {
+        "event": "PLF separation",
+        "time": 224,
+        "altitude": 110.15,
+        "thrust": 847,
+        "image": "GSLV-M2/PLF.png",
+        "stage": "GS2 - GL40HT"
+    },
+    {
+        "event": "PLF separation",
+        "time": 228,
+        "altitude": 110.15,
+        "thrust": 847,
+        "image": "GSLV-M2/PLF_IG.png",
+        "stage": "GS2 - GL40HT"
+    },
+    {
+        "event": "GS2 shut off",
+        "time": 291,
+        "altitude": 130.24,
+        "thrust": 0,
+        "image": "GSLV-M2/PLF_IG.png",
+        "stage": "GS2"
+    },
+    {
+        "event": "GS2 separation",
+        "time": 294,
+        "altitude": 131.20,
+        "thrust": 0,
+        "image": "GSLV-M2/CUS.png",
+        "stage": "GS2"
+    },
+    {
+        "event": "CUS ignition",
+        "time": 297,
+        "altitude": 238.44,
+        "thrust": 75,
+        "image": "GSLV-M2/CUS_IG.png",
+        "stage": "GS3 - CUS15"
+    },
+    {
+        "event": "CUS shut off",
+        "time": 1108,
+        "altitude": 243.31,
+        "thrust": 0,
+        "image": "GSLV-M2/CUS.png",
+        "stage": "GS3"
+    },
+    {
+        "event": "CUS burn out",
+        "time": 1113,
+        "altitude": 253.53,
+        "thrust": 0,
+        "image": "GSLV-M2/CUS.png",
+        "stage": "GS3"
+    },
+    {
+        "event": "INSAT-3DS S/c separation",
+        "time": 1123,
+        "altitude": 0,
+        "thrust": 0,
+        "image": "GSLV-M2/SAT_SEP.png",
+        "stage": "Payload Deployed in the Designated Orbit"
+    }
+]

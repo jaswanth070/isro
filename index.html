@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GSLV-F14 / INSAT-3DS</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+        body {
+            background: #aac5e3;
+            font-family: Montserrat, sans-serif;
+            background-image: url('bg.png');
+            font-size: 1.5em;
+            background-size: cover;
+            /* background-position: center; */
+            background-repeat: no-repeat;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .container {
+            width: max-content;
+            margin: 4.2rem auto;
+        }
+
+        .ist-time {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 25px;
+            color: #fff;
+            background: #0170ab;
+            background: -webkit-linear-gradient(left, #0170ab, rgba(1, 112, 171, 0.5));
+            background: -o-linear-gradient(right, #0170ab, rgba(1, 112, 171, 0.5));
+            background: -moz-linear-gradient(right, #0170ab, rgba(1, 112, 171, 0.5));
+            background: linear-gradient(to right, #0170ab, rgba(1, 112, 171, 0.5));
+        }
+
+        .ist {
+            background: #4386b9;
+            display: inline-block;
+            padding: 2px 12px 2px 12px;
+            -webkit-transform: skew(30deg) translateX(-10px);
+            -moz-transform: skew(30deg) translateX(-10px);
+            -o-transform: skew(30deg) translateX(-10px);
+            box-shadow: 7px 0px 5px -2px #37689b;
+        }
+
+        .ist-title {
+            -webkit-transform: skew(-30deg);
+            -moz-transform: skew(-30deg);
+            -o-transform: skew(-30deg);
+        }
+
+        #istTime-time {
+            display: inline-block;
+            padding: 2px 0px;
+            width: 120px;
+        }
+
+        .timer {
+            position: fixed;
+            bottom: 15px;
+            right: -148px;
+            color: #fff;
+            background: #0170ab;
+            background: -webkit-linear-gradient(left, #0170ab, rgba(1, 112, 171, 0.5));
+            background: -o-linear-gradient(right, #0170ab, rgba(1, 112, 171, 0.5));
+            background: -moz-linear-gradient(right, #0170ab, rgba(1, 112, 171, 0.5));
+            background: linear-gradient(to right, #0170ab, rgba(1, 112, 171, 0.5));
+            transform: translate(-50%, -700%);
+        }
+
+        .timer .titleSkewed {
+            background: #4386b9;
+            display: inline-block;
+            padding: 2px 12px 2px 12px;
+            -webkit-transform: skew(30deg) translateX(-10px);
+            -moz-transform: skew(30deg) translateX(-10px);
+            -o-transform: skew(30deg) translateX(-10px);
+            box-shadow: 7px 0px 5px -2px #37689b;
+        }
+
+        .timer .title {
+            -webkit-transform: skew(-30deg);
+            -moz-transform: skew(-30deg);
+            -o-transform: skew(-30deg);
+        }
+
+        .timer #time {
+            display: inline-block;
+            padding: 2px 0px;
+            width: 242px;
+        }
+
+        #current-phase-box {
+            color: #fff;
+            background-color: rgba(24, 30, 31, 0.8);
+            border: 2px solid gray;
+            padding: 10px;
+            text-align: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+
+        #current-phase {
+            color: aquamarine;
+            margin-top: 3px;
+            border: 3px solid gray;
+            /* padding: 3px; */
+            font-size: 1.5rem;
+            display: block;
+
+        }
+
+        .infoPanel {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            font-size: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .infoPanel .title {
+            background: rgba(24, 30, 31, 0.8);
+            color: #fff;
+            font-size: 22px;
+            width: 100%;
+            padding: 5px 0px;
+        }
+
+        .infoPanel #titleLeft {
+            font-weight: bold;
+            padding: 0px 10px;
+        }
+
+        .infoPanel #titleRight {
+            float: right;
+            padding: 0px 10px;
+        }
+
+        .dataTitle {
+            background: lime;
+        }
+
+        #dataTitleLeft,
+        #dataTitleRight {
+            background: rgba(33, 44, 48, 0.9);
+            background: -webkit-linear-gradient(left, rgba(33, 44, 48, 0.9), rgba(88, 97, 102, 0.9));
+            background: -o-linear-gradient(right, rgba(33, 44, 48, 0.9), rgba(88, 97, 102, 0.9));
+            background: -moz-linear-gradient(right, rgba(33, 44, 48, 0.9), rgba(88, 97, 102, 0.9));
+            background: linear-gradient(to right, rgba(33, 44, 48, 0.9), rgba(88, 97, 102, 0.9));
+            font-size: 18px;
+            color: #fff;
+            display: inline-block;
+            width: 130px;
+            padding: 5px 10px;
+        }
+
+        .databox {
+            width: 147px;
+            height: 146px;
+            background: rgba(24, 30, 31, 0.8);
+            display: inline-block;
+            border: 2px solid #989c9d;
+        }
+
+        .databox:nth-child(2) {
+            border-left: none;
+        }
+
+        .dataCircle {
+            width: 100px;
+            height: 100px;
+            border: 10px solid rgba(88, 97, 102, 0.9);
+            margin: 0 auto;
+            margin-top: 10px;
+            border-radius: 50%;
+            border-bottom-color: transparent;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+        }
+
+        .data {
+            color: #fff;
+            font-size: 23px;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            margin-top: 39px;
+            text-align: center;
+        }
+
+        .unit {
+            color: #fff;
+            position: relative;
+            font-size: 17px;
+            text-align: right;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+    <style>
+        /* Flight Events Table Styles */
+        .flight-events {
+            background-color: rgba(24, 30, 31, 0.8);
+            color: white;
+            /* margin-top: 20px; */
+            padding: 20px;
+            border: 2px solid #989c9d;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .flight-events h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 18px;
+        }
+
+        table th,
+        table td {
+            color: #ffff;
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: rgba(33, 44, 48, 0.9);
+            color: white;
+        }
+
+        .visualization {
+            position: absolute;
+            top: 43%;
+            left: 0;
+            width: 150px;
+            /* Adjust the width as needed */
+            height: 80px;
+            /* Adjust the height as needed */
+            padding: 10px;
+            /* background-color: rgba(33, 44, 48, 0.9); */
+            /* border-right: 2px solid #989c9d; */
+            /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visualization img {
+            max-width: 100%;
+            max-height: 1000%;
+            width: auto;
+            height: auto;
+        }
+
+        .v1 {
+            position: fixed;
+            top: 3px;
+            right: 0;
+            width: 300px;
+            height: 200px;
+        }
+
+        /* Additional styles for responsive design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+        }
+
+        footer {
+            position: fixed;
+            bottom: 15px;
+            font-size: 0.9rem;
+            margin-left: 30%;
+            text-align: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="container">
+        <div class="ist-time" id="istTime">
+            <div class="ist">
+                <div class="ist-title">IST</div>
+            </div>
+            <div id="istTime-time">
+                00:00:00
+            </div>
+        </div>
+        <div class="timer">
+            <div class="titleSkewed">
+                <div class="title">T<span id="sign"></span></div>
+            </div>
+            <div id="time">00:00:23</div>
+        </div>
+        <div class="infoPanel">
+            <div class="title"><span id="titleLeft">GSLV-F14</span><span id="titleRight">TELEMETRY</span></div>
+            <div class="dataTitle">
+                <div id="dataTitleLeft">ENGINE THRUST</div>
+                <div id="dataTitleRight">REPORTED ALTITUDE</div>
+            </div>
+            <div class="dataBoxes">
+                <div class="databox">
+                    <div class="dataCircle">
+                        <div class="data" id="thrust">00000</div>
+                    </div>
+                    <div class="unit">k/N</div>
+                </div>
+                <div class="databox">
+                    <div class="dataCircle">
+                        <div class="data" id="altitude">000</div>
+                    </div>
+                    <div class="unit">km</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flight-events">
+            <h2>GSLV-F14 / INSAT-3DS</h2>
+            <table id="eventTable">
+                <tr>
+                    <th>Flight Event</th>
+                    <th>Time</th>
+                </tr>
+
+            </table>
+        </div>
+        <!-- Right Side -->
+        <div class="v1">
+            <div id="current-phase-box">GSLV F-14 Current Stage: <span id="current-phase">Automatic Launch Sequence
+                    Initated</span>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <img id="image" src="GSLV-M2/gslv.png" alt="Visualization">
+        </div>
+
+
+    </div>
+
+    <footer>
+        <!-- <marquee scrollamount="10">
+        </marquee> -->
+        <p style="color: #fff;">This is a Flight Event Tracking and Visualizing model developed by Jaswanth Madiya
+        </p>
+    </footer>
+    
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    
+    <script>
+        // DATA SRC:
+        // https://raw.githubusercontent.com/Srokap/spacex-telemetry/windows/output/crs10.json
+        const targetDate = new Date('2024-02-17T17:35:00+05:30');
+        let isLaunchedd = false
+
+        // const fs = require('fs');
+        let eventTimes;
+        fetch('flightdata.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Store the fetched data in the eventTime variable
+                eventTimes = data;
+                // You can also do further processing with the data if needed
+                console.log('Fetched event time data:', eventTimes);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+
+        // function speak(text) {
+        //     const utterance = new SpeechSynthesisUtterance(text);
+        //     speechSynthesis.speak(utterance);
+        // }
+
+        function updateISTTime() {
+            const now = new Date();
+            const options = { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const istTime = now.toLocaleTimeString('en-US', options);
+            $("#istTime-time").text(istTime);
+        }
+
+        function appendFlightEvent(event) {
+            // const eventTableElement = document.getElementById("eventTable");
+            const flightEventTable = document.querySelector("#eventTable");
+            const image = document.querySelector("#image")
+
+            if (flightEventTable) {
+                const tableRow = document.createElement("tr");
+
+                const eventCell = document.createElement("td");
+                eventCell.textContent = event.event;
+
+                const timeCell = document.createElement("td");
+                timeCell.textContent = event.time;
+                // console.log(event)
+                image.src = event.image;
+
+                // speak(event.stage);
+                $("#altitude").text(event.altitude)
+                $("#thrust").text(event.thrust)
+                $("#current-phase").text(event.stage)
+
+                tableRow.appendChild(eventCell);
+                tableRow.appendChild(timeCell);
+                flightEventTable.appendChild(tableRow);
+            }
+        }
+
+        function convertTimeToSeconds(time) {
+            const timeComponents = time.split(' ');
+            let seconds = 0;
+
+            for (const component of timeComponents) {
+                if (component.includes('d')) {
+                    seconds += parseInt(component) * 24 * 3600;
+                } else if (component.includes('h')) {
+                    seconds += parseInt(component) * 3600;
+                } else if (component.includes('m')) {
+                    seconds += parseInt(component) * 60;
+                } else if (component.includes('s')) {
+                    seconds += parseInt(component);
+                }
+            }
+            return seconds;
+        }
+
+        function checkAndAppendFlightEvent() {
+            if (isLaunchedd) {
+                const currentTime = $("#time").html();
+                const currentTimeInSeconds = convertTimeToSeconds(currentTime);
+                const matchingEvent = eventTimes.find(event => event.time === currentTimeInSeconds);
+                if (matchingEvent) {
+                    appendFlightEvent(matchingEvent);
+                }
+            }
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference > 0) {
+                const seconds = Math.floor(timeDifference / 1000) % 60;
+                const minutes = Math.floor((timeDifference / 1000 / 60) % 60);
+                const hours = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+                const countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                $("#sign").html("-");
+                $("#time").html(countdown);
+            }
+            else {
+                isLaunchedd = true
+
+                const elapsedTime = Math.abs(timeDifference);
+                const seconds = Math.floor(elapsedTime / 1000) % 60;
+                const minutes = Math.floor((elapsedTime / 1000 / 60) % 60);
+                const hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
+                const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+
+                const countup = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                $("#sign").html("+");
+                $("#time").html(countup);
+            }
+        }
+
+
+        setInterval(updateCountdown, 1000);
+        setInterval(checkAndAppendFlightEvent, 1000);
+        setInterval(updateISTTime, 1000);
+    </script>
+
+</body>
+
+</html>
